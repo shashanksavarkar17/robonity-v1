@@ -13,6 +13,8 @@ import Newsletter from './pages/Newsletter';
 import RoboShare from './pages/RoboShare';
 import Gallery from './pages/Gallery';
 import Resources from './pages/Resources';
+import Login from './pages/Login';     // Import Login
+import Signup from './pages/Signup';   // Import Signup
 
 function App() {
   return (
@@ -24,14 +26,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
-
-          {/* New Routes */}
           <Route path="/forum" element={<Forum />} />
           <Route path="/events" element={<Events />} />
           <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/roboshare" element={<RoboShare />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/resources" element={<Resources />} />
+
+          {/* New Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </main>
       <Footer />

@@ -596,3 +596,141 @@ img {
     display: block; /* Stack stats on desktop */
   }
 }
+/* === NEW: Auth Form Styles === */
+.auth-form-container {
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--content-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-form .page-header {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-group input {
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-light);
+  font-family: var(--font-family);
+}
+
+.auth-form button {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--dark-color);
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.auth-form button:hover {
+  filter: brightness(1.2);
+}
+
+.auth-error {
+  color: #ff6b6b; /* A light red for errors */
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* === NEW: Navbar Auth Link Styles === */
+
+/* This will be the <li> element */
+.auth-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Styles for login/signup/logout buttons */
+.btn-login,
+.btn-signup,
+.btn-logout {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-login,
+.btn-logout {
+  color: var(--primary-color);
+  background: transparent;
+}
+
+.btn-signup {
+  color: var(--dark-color);
+  background: var(--primary-color);
+}
+
+.btn-login:hover,
+.btn-logout:hover {
+  color: var(--dark-color);
+  background: var(--primary-color);
+}
+
+.btn-signup:hover {
+  filter: brightness(1.2);
+}
+
+/* Special styles for logout button */
+.btn-logout {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Adjust layout on mobile */
+@media (max-width: 900px) {
+  .auth-links {
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0;
+  }
+  
+  .btn-login,
+  .btn-signup,
+  .btn-logout {
+    width: 90%;
+    text-align: center;
+  }
+}
