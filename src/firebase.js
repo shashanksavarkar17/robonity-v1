@@ -1,11 +1,10 @@
-// Import the functions you need from the SDKs you need
+// src/firebase.js
+
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA0nCvCAQrLGeDe9U6M89fulfK98FxY0ks",
   authDomain: "robonityapp.firebaseapp.com",
@@ -18,4 +17,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialize and export Firebase services
+//
+// ▼▼▼ THIS IS THE CRITICAL LINE THAT IS LIKELY MISSING OR WRONG ▼▼▼
+//
+export const auth = getAuth(app);
+//
+// ▲▲▲ MAKE SURE THIS LINE EXISTS AND HAS 'export const' ▲▲▲
+//
+
+export const db = getFirestore(app);
+export default app;
