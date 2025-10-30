@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
     <div>
-      {/* === New Hero Section === */}
+      {/* === Hero Section (Stable Version) === */}
       <section className="hero">
         <div className="hero-content">
           <h1>Welcome to Robonity</h1>
@@ -14,12 +14,15 @@ function Home() {
             <Link to="/projects" className="btn btn-secondary">Explore Projects</Link>
           </div>
         </div>
+        
+        {/* === We are back to the simple image placeholder === */}
         <div className="hero-image">
           {/* This tag will render an image */}
           
         </div>
+        {/* ========================= */}
+
       </section>
-      {/* === End of Hero Section === */}
 
       {/* Existing Content */}
       <h2 className="page-header" style={{ marginTop: '3rem' }}>Get Started</h2>
@@ -32,3 +35,4 @@ function Home() {
 }
 
 export default Home;
+

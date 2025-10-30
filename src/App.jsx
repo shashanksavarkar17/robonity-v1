@@ -16,7 +16,7 @@ import Resources from './pages/Resources';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import SingleThreadPage from './pages/SingleThreadPage';
-import SubmitProject from './pages/SubmitProject';
+// import SubmitProject from './pages/SubmitProject';
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
           
           {/* Dynamic Routes */}
           <Route path="/forum/thread/:threadId" element={<SingleThreadPage />} />
-          <Route path="/submit-project" element={<SubmitProject />} />
+          {/* <Route path="/submit-project" element={<SubmitProject />} /> */}
         </Routes>
       </main>
       <Footer />
