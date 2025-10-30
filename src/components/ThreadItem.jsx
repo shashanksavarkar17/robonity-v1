@@ -1,14 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ThreadItem({ title, author, date, replies, views }) {
+// Helper function to format the timestamp (no change)
+function formatDate(timestamp) {
+  if (!timestamp) {
+    return 'Just now';
+  }
+  return timestamp.toDate().toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
+// Prop list is updated
+function ThreadItem({ id, title, authorName, date, replies, views }) {
+
   return (
     <div className="thread-item">
       <div className="thread-details">
-        {/* We link to a placeholder, e.g., /forum/thread/1 */}
-        <Link to={`/forum/thread/1`}>{title}</Link>
+        <Link to={`/forum/thread/${id}`}>{title}</Link>
         <div className="thread-metadata">
-          by <strong>{author}</strong> on {date}
+          {/* UPDATED: We just use authorName directly */}
+          by <strong>{authorName || 'Anonymous'}</strong> on {formatDate(date)}
         </div>
       </div>
       <div className="thread-stats">

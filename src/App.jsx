@@ -13,8 +13,10 @@ import Newsletter from './pages/Newsletter';
 import RoboShare from './pages/RoboShare';
 import Gallery from './pages/Gallery';
 import Resources from './pages/Resources';
-import Login from './pages/Login';     // Import Login
-import Signup from './pages/Signup';   // Import Signup
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import SingleThreadPage from './pages/SingleThreadPage';
+import SubmitProject from './pages/SubmitProject';
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
       <Navbar />
       <main className="main-content">
         <Routes>
-          {/* Existing Routes */}
+          {/* Main Page Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
@@ -33,9 +35,13 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/resources" element={<Resources />} />
 
-          {/* New Auth Routes */}
+          {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          
+          {/* Dynamic Routes */}
+          <Route path="/forum/thread/:threadId" element={<SingleThreadPage />} />
+          <Route path="/submit-project" element={<SubmitProject />} />
         </Routes>
       </main>
       <Footer />

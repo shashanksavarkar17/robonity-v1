@@ -1,64 +1,81 @@
-import React from 'react';
-import GalleryItem from '../components/GalleryItem'; // Import the new component
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { db } from '../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import GalleryItem from '../components/GalleryItem';
 
 function Gallery() {
-  // We'll use placeholder images from a service called 'placeholder.com'
-  // You can replace these URLs with your own images later.
-  
-  const galleryData = [
-    {
-      id: 1,
-      title: 'Autonomous Rover',
-      description: 'A student-built rover navigating an obstacle course.',
-      imageUrl: 'https://via.placeholder.com/400x250/007bff/ffffff?text=Rover+Project'
-    },
-    {
-      id: 2,
-      title: 'RoboSoccer 2025',
-      description: 'Our team competing in the finals.',
-      imageUrl: 'https://via.placeholder.com/400x250/28a745/ffffff?text=RoboSoccer'
-    },
-    {
-      id: 3,
-      title: '3D Printed Arm',
-      description: 'A 6-axis robotic arm prototype.',
-      imageUrl: 'https://via.placeholder.com/400x250/dc3545/ffffff?text=Robotic+Arm'
-    },
-    {
-      id: 4,
-      title: 'Workshop Day',
-      description: 'Members learning soldering and circuitry.',
-      imageUrl: 'https://via.placeholder.com/400x250/ffc107/000000?text=Workshop'
-    },
-    {
-      id: 5,
-      title: 'Drone Assembly',
-      description: 'Assembling our custom quadcopter for aerial photography.',
-      imageUrl: 'https://via.placeholder.com/400x250/17a2b8/ffffff?text=Drone+Build'
-    },
-    {
-      id: 6,
-      title: 'Line Follower Bot',
-      description: 'A classic line follower bot from our beginner\'s competition.',
-      imageUrl: 'https://via.placeholder.com/400x250/6c757d/ffffff?text=Line+Follower'
-    }
-  ];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Real-time listener for projects
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    try {
+      const projectsRef = collection(db, 'projects');
+      const q = query(projectsRef, orderBy('createdAt', 'desc'));
+
+      const unsubscribe = onSnapshot(q,
+        (querySnapshot) => {
+          const projectsData = [];
+          querySnapshot.forEach((doc) => {
+            projectsData.push({ ...doc.data(), id: doc.id });
+          });
+          setProjects(projectsData);
+          setLoading(false);
+        },
+        (err) => {
+          console.error(err);
+          setError("Failed to load projects: " + err.message);
+          setLoading(false);
+        }
+      );
+      return () => unsubscribe();
+    } catch (err) {
+      console.error(err);
+      setError("Error setting up projects listener: " + err.message);
+      setLoading(false);
+    }
+  }, []);
+  
   return (
     <div>
-      <h1 className="page-header">Project Gallery</h1>
+      <div className="gallery-header">
+        <h1 className="page-header" style={{marginBottom: 0}}>Project Gallery</h1>
+        {/* New Submit Button */}
+        <Link to="/submit-project" className="new-thread-btn">
+          Submit Your Project
+        </Link>
+      </div>
       <p style={{marginBottom: '2rem'}}>A visual showcase of the amazing robots built by our community members.</p>
       
-      <div className="gallery-grid">
-        {galleryData.map(item => (
-          <GalleryItem 
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            imageUrl={item.imageUrl}
-          />
-        ))}
-      </div>
+      {loading && <p>Loading projects...</p>}
+      
+      {error && (
+        <div className="auth-error">
+          <p><strong>Error loading projects:</strong></p>
+          <p style={{fontFamily: 'monospace', fontSize: '0.9rem', marginTop: '1rem'}}>{error}</p>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <div className="gallery-grid">
+          {projects.length === 0 && (
+            <p style={{color: 'var(--text-muted)'}}>No projects submitted yet. Be the first!</p>
+          )}
+          {projects.map(item => (
+            <GalleryItem 
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              imageUrl={item.imageUrl}
+              // You can also pass authorName if you update GalleryItem
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
